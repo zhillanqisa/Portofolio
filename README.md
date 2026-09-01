@@ -51,19 +51,19 @@ git init
 git add .
 git commit -m "Portfolio site"
 git branch -M main
-git remote add origin https://github.com/zhillanqisa/zhillanqisa.github.io.git
+git remote add origin https://github.com/zhillanqisa/portofolio.git
 git push -u origin main
 ```
 
 Then on GitHub: **Settings > Pages > Build and deployment > Deploy from a
 branch**, pick `main` and `/ (root)`, and save. The site appears at
-`https://zhillanqisa.github.io/` within a minute or two.
+`https://zhillanqisa.github.io/portofolio/` within a minute or two.
 
 `.nojekyll` is already present so GitHub serves the files as-is.
 
 ### One thing to edit after deploying
 
-If you use a repository name other than `zhillanqisa.github.io`, or a custom domain, update
+If you use a repository name other than `portofolio`, or a custom domain, update
 the four absolute URLs in the `<head>` of `index.html`: `canonical`, `og:url`,
 `og:image` and `twitter:image`. Everything else uses relative paths.
 
