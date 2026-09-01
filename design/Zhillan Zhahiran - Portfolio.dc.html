@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: #f6f5f2; -webkit-font-smoothing: antialiased; }
+  a { color: #20201e; text-decoration: none; border-bottom: 1px solid #c9c7c0; }
+  a:hover { border-bottom-color: #20201e; }
+  ::selection { background: #e3e1da; }
+  html { scroll-behavior: smooth; }
+
+  @keyframes zq-rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+  @keyframes zq-line { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes zq-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  @keyframes zq-dot { from { opacity: 0; transform: scale(0.2); } to { opacity: 1; transform: none; } }
+
+  [data-reveal] { opacity: 0; }
+  [data-reveal].zq-in { animation: zq-rise 0.85s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+  [data-reveal].zq-in > * { animation: zq-rise 0.85s cubic-bezier(0.19, 1, 0.22, 1) backwards; }
+  [data-stagger].zq-in > *:nth-child(1) { animation-delay: 0.04s; }
+  [data-stagger].zq-in > *:nth-child(2) { animation-delay: 0.12s; }
+  [data-stagger].zq-in > *:nth-child(3) { animation-delay: 0.2s; }
+  [data-stagger].zq-in > *:nth-child(4) { animation-delay: 0.28s; }
+  [data-stagger].zq-in > *:nth-child(5) { animation-delay: 0.36s; }
+
+  [data-rule] { transform: scaleX(0); transform-origin: left; }
+  [data-rule].zq-in { animation: zq-line 1.1s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+
+  [data-timeline] { transform: scaleY(0); transform-origin: top; }
+  [data-timeline].zq-in { animation: zq-grow 1.2s cubic-bezier(0.19, 1, 0.22, 1) 0.1s forwards; }
+  [data-dot] { opacity: 0; }
+  [data-dot].zq-in { animation: zq-dot 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+  [data-hero] > * { animation: zq-rise 0.9s cubic-bezier(0.19, 1, 0.22, 1) backwards; }
+  [data-hero] > *:nth-child(1) { animation-delay: 0.05s; }
+  [data-hero] > *:nth-child(2) { animation-delay: 0.15s; }
+  [data-hero] > *:nth-child(3) { animation-delay: 0.25s; }
+  [data-hero] > *:nth-child(4) { animation-delay: 0.35s; }
+  [data-portrait] { animation: zq-rise 1s cubic-bezier(0.19, 1, 0.22, 1) backwards; }
+  [data-portrait] img { transition: transform 1.1s cubic-bezier(0.19, 1, 0.22, 1), filter 0.6s ease; }
+  [data-portrait]:hover img { transform: scale(1.045); }
+
+  [data-float] { transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.7s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.5s ease; box-shadow: 0 1px 2px rgba(32,32,30,0.04); }
+  [data-float]:hover { transform: translateY(-10px); box-shadow: 0 26px 50px -18px rgba(32,32,30,0.28); border-color: #c2bfb7; }
+
+  [data-strip] { scrollbar-width: none; -ms-overflow-style: none; }
+  [data-strip]::-webkit-scrollbar { display: none; }
+  [data-card] { transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.6s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.4s ease; box-shadow: 0 1px 2px rgba(32,32,30,0.05); }
+  [data-card]:hover, [data-card]:focus-visible { transform: translateY(-10px) rotate(-0.5deg); box-shadow: 0 26px 46px -18px rgba(32,32,30,0.3); border-color: #b8b5ad; outline: none; }
+  [data-expand] { opacity: 0; transform: translateY(-4px); transition: opacity 0.35s ease, transform 0.35s ease; }
+  [data-card]:hover [data-expand], [data-card]:focus-visible [data-expand] { opacity: 1; transform: none; }
+
+  @keyframes zq-fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes zq-zoom { from { opacity: 0; transform: scale(0.96) translateY(12px); } to { opacity: 1; transform: none; } }
+  [data-lightbox] { animation: zq-fade 0.3s ease forwards; }
+  [data-lightbox-panel] { animation: zq-zoom 0.5s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+
+  [data-plate] { transition: border-color 0.4s ease; }
+  [data-plate] > span { transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), background 0.4s ease, color 0.4s ease; }
+  [data-plate]:hover { border-color: #b8b5ad; }
+  [data-plate]:hover > span { transform: translateY(-3px); background: #20201e; color: #f6f5f2; border-color: #20201e; }
+
+  [data-tag] { transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease; }
+  [data-tag]:hover { border-color: #20201e; color: #20201e; transform: translateY(-2px); }
+
+  [data-skill] { transition: transform 0.35s cubic-bezier(0.19, 1, 0.22, 1), color 0.3s ease; }
+  [data-skill]:hover { transform: translateX(6px); color: #000; }
+
+  [data-cta] { transition: transform 0.35s cubic-bezier(0.19, 1, 0.22, 1), background 0.3s ease, border-color 0.3s ease; }
+  [data-cta]:hover { transform: translateY(-2px); }
+
+  nav a { transition: color 0.25s ease; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    [data-reveal], [data-dot] { opacity: 1; }
+    [data-rule], [data-timeline] { transform: none; }
+  }
+</style>
+</helmet>
+<div style="font-family: Archivo, Helvetica, Arial, sans-serif; color: #20201e; background: #f6f5f2; min-height: 100vh; font-size: 16px; line-height: 1.55;">
+
+  <header style="position: sticky; top: 0; z-index: 10; background: rgba(246,245,242,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid #dcdad3;">
+    <div style="max-width: 1080px; margin: 0 auto; padding: 14px 32px; display: flex; align-items: baseline; justify-content: space-between; gap: 24px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;">Z. Q. Zhahiran</span>
+      <nav style="display: flex; flex-wrap: wrap; gap: 10px 20px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase;">
+        <a href="#about" style="border-bottom: none; color: #6b6963;" style-hover="color: #20201e;">About</a>
+        <a href="#work" style="border-bottom: none; color: #6b6963;" style-hover="color: #20201e;">Work</a>
+        <a href="#writing" style="border-bottom: none; color: #6b6963;" style-hover="color: #20201e;">Writing</a>
+        <a href="#skills" style="border-bottom: none; color: #6b6963;" style-hover="color: #20201e;">Skills</a>
+        <a href="#experience" style="border-bottom: none; color: #6b6963;" style-hover="color: #20201e;">Experience</a>
+        <a href="#contact" style="border-bottom: none; color: #6b6963;" style-hover="color: #20201e;">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section style="max-width: 1080px; margin: 0 auto; padding: 108px 32px 88px;">
+   <div style="display: flex; flex-wrap: wrap; gap: 56px; align-items: flex-start;">
+    <div data-portrait="" style="flex: 0 0 300px; max-width: 100%; aspect-ratio: 3 / 4; border: 1px solid #dcdad3; overflow: hidden; background: #efeee9;">
+      <img src="assets/portrait.jpg" alt="Zhillan Qisa Zhahiran" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; display: block;" />
+    </div>
+    <div data-hero="" style="display: grid; grid-template-columns: 1fr; gap: 40px; flex: 1 1 380px; min-width: 0;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #6b6963; display: flex; gap: 18px; flex-wrap: wrap;">
+        <span>Urban &amp; Regional Planning</span>
+        <span style="color: #c2bfb7;">/</span>
+        <span>Geographic Information Systems</span>
+        <span style="color: #c2bfb7;">/</span>
+        <span>Bandung, Indonesia</span>
+      </div>
+      <h1 style="margin: 0; font-size: clamp(40px, 6.4vw, 76px); line-height: 1.02; font-weight: 500; letter-spacing: -0.025em; max-width: 18ch; text-wrap: balance;">Zhillan Qisa Zhahiran</h1>
+      <p style="margin: 0; max-width: 62ch; font-size: 19px; line-height: 1.6; color: #45443f; text-wrap: pretty;">International Undergraduate Program student in Urban &amp; Regional Planning at Diponegoro University, class of 2024. I specialize in GIS and spatial data, with a growing focus on transportation and infrastructure, and I take on urban research wherever the question is interesting.</p>
+      <div style="display: flex; gap: 14px; flex-wrap: wrap; align-items: center;">
+        <a href="#work" style="border-bottom: none; background: #20201e; color: #f6f5f2; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; padding: 13px 22px;" data-cta="" style-hover="background: #3a3934;">View selected work</a>
+        <a href="#contact" style="border-bottom: none; border: 1px solid #cbc9c2; color: #20201e; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; padding: 12px 22px;" data-cta="" style-hover="border-color: #20201e;">Get in touch</a>
+      </div>
+    </div>
+   </div>
+  </section>
+
+  <div style="max-width: 1080px; margin: 0 auto; padding: 0 32px;"><div data-rule="" style="height: 1px; background: #dcdad3;"></div></div>
+
+  <section id="about" style="max-width: 1080px; margin: 0 auto; padding: 72px 32px;">
+    <div style="display: flex; flex-wrap: wrap; gap: 22px 48px; align-items: flex-start;">
+      <h2 style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #6b6963; font-weight: 500; padding-top: 8px; flex: 0 0 200px;">01 · About</h2>
+      <div data-reveal="" data-stagger="" style="display: grid; gap: 26px; max-width: 66ch; flex: 1 1 320px; min-width: 0;">
+        <p style="margin: 0; font-size: 21px; line-height: 1.55; letter-spacing: -0.01em; text-wrap: pretty;">Proficient in QGIS, ArcGIS Pro, and AutoCAD, with additional experience in SketchUp for 3D visualization.</p>
+        <p style="margin: 0; font-size: 17px; line-height: 1.65; color: #55534d; text-wrap: pretty;">Combines technical spatial-analysis skills with organizational and event-leadership experience. Open to planning, mapping, and research work, and to projects that sit outside the usual brief.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: #dcdad3; border: 1px solid #dcdad3; margin-top: 8px;">
+          <div data-plate="" style="background: #f6f5f2; padding: 18px 20px;">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a887f;">Program</div>
+            <div style="font-size: 15px; margin-top: 6px;">IUP Urban &amp; Regional Planning</div>
+          </div>
+          <div data-plate="" style="background: #f6f5f2; padding: 18px 20px;">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a887f;">University</div>
+            <div style="font-size: 15px; margin-top: 6px;">Diponegoro University</div>
+          </div>
+          <div data-plate="" style="background: #f6f5f2; padding: 18px 20px;">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a887f;">Focus</div>
+            <div style="font-size: 15px; margin-top: 6px;">GIS, spatial analysis, design</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="max-width: 1080px; margin: 0 auto; padding: 0 32px;"><div data-rule="" style="height: 1px; background: #dcdad3;"></div></div>
+
+  <section id="work" style="max-width: 1080px; margin: 0 auto; padding: 72px 32px;">
+    <div style="display: flex; flex-wrap: wrap; gap: 22px 48px; align-items: flex-start;">
+      <h2 style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #6b6963; font-weight: 500; padding-top: 8px; flex: 0 0 200px;">02 · Selected work</h2>
+      <div style="display: grid; gap: 56px; flex: 1 1 320px; min-width: 0;">
+
+        <article data-reveal="" data-stagger="" style="display: grid; gap: 18px;">
+          <div style="display: grid; gap: 16px;">
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+                <div role="button" tabindex="0" data-key="{{ t.key }}" onClick="{{ setFilter }}" style="{{ t.style }}">{{ t.label }}</div>
+              </sc-for>
+            </div>
+            <div data-strip="" style="display: flex; gap: 18px; overflow-x: auto; padding: 2px 2px 22px; scroll-snap-type: x mandatory;">
+              <sc-for list="{{ visible }}" as="m" hint-placeholder-count="5">
+                <div data-card="" data-index="{{ $index }}" onClick="{{ onCardClick }}" role="button" tabindex="0" onKeyDown="{{ onCardKey }}" style="flex: 0 0 300px; scroll-snap-align: start; cursor: pointer; position: relative; border: 1px solid #dcdad3; background: #fff;">
+                  <div style="aspect-ratio: 4 / 3; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                    <img src="{{ m.src }}" alt="{{ m.label }}" loading="lazy" style="width: 100%; height: 100%; object-fit: contain; display: block;" />
+                  </div>
+                  <div style="border-top: 1px solid #e6e4dd; padding: 10px 12px; display: flex; gap: 10px; align-items: baseline; justify-content: space-between;">
+                    <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: #45443f;">{{ m.label }}</span>
+                    <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: #a19e95; white-space: nowrap;">{{ m.sub }}</span>
+                  </div>
+                  <span data-expand="" style="position: absolute; top: 12px; right: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #f6f5f2; background: #20201e; padding: 4px 8px;">Open</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display: grid; gap: 8px;">
+            <div style="display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap;">
+              <h3 style="margin: 0; font-size: 24px; font-weight: 500; letter-spacing: -0.015em;">{{ groupTitle }}</h3>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8a887f;">{{ mapCount }} maps</span>
+            </div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.06em; color: #8a887f;">{{ groupMeta }}</div>
+            <p style="margin: 4px 0 0; max-width: 62ch; font-size: 16.5px; line-height: 1.6; color: #55534d; text-wrap: pretty;">{{ groupNote }}</p>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px;">
+              <sc-for list="{{ groupTags }}" as="tag" hint-placeholder-count="3">
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #55534d; border: 1px solid #dcdad3; padding: 4px 9px;" data-tag="">{{ tag }}</span>
+              </sc-for>
+            </div>
+          </div>
+        </article>
+
+        <article data-reveal="" data-stagger="" style="display: grid; gap: 18px;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px;">
+            <a href="assets/studio/poster-1-profil-kecamatan.png" target="_blank" rel="noopener" data-card="" style="border-bottom: none; position: relative; display: block; border: 1px solid #dcdad3; background: #fff;">
+              <div style="aspect-ratio: 3 / 4; overflow: hidden;">
+                <img src="assets/studio/poster-1-profil-kecamatan.png" alt="Profil Kecamatan Kroya" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; display: block;" />
+              </div>
+              <div style="border-top: 1px solid #e6e4dd; padding: 10px 12px; display: grid; gap: 3px;">
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: #45443f;">Profil Kecamatan Kroya</span>
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: #a19e95;">Sub-district profile</span>
+              </div>
+              <span data-expand="" style="position: absolute; top: 10px; right: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #f6f5f2; background: #20201e; padding: 4px 8px;">Open</span>
+            </a>
+            <a href="assets/studio/poster-2-perkotaan.png" target="_blank" rel="noopener" data-card="" style="border-bottom: none; position: relative; display: block; border: 1px solid #dcdad3; background: #fff;">
+              <div style="aspect-ratio: 3 / 4; overflow: hidden;">
+                <img src="assets/studio/poster-2-perkotaan.png" alt="Mengenal Perkotaan Kroya" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; display: block;" />
+              </div>
+              <div style="border-top: 1px solid #e6e4dd; padding: 10px 12px; display: grid; gap: 3px;">
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: #45443f;">Mengenal Perkotaan Kroya</span>
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: #a19e95;">Urban area</span>
+              </div>
+              <span data-expand="" style="position: absolute; top: 10px; right: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #f6f5f2; background: #20201e; padding: 4px 8px;">Open</span>
+            </a>
+            <a href="assets/studio/poster-3-kawasan.png" target="_blank" rel="noopener" data-card="" style="border-bottom: none; position: relative; display: block; border: 1px solid #dcdad3; background: #fff;">
+              <div style="aspect-ratio: 3 / 4; overflow: hidden;">
+                <img src="assets/studio/poster-3-kawasan.png" alt="Sekilas Tentang Kawasan" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; display: block;" />
+              </div>
+              <div style="border-top: 1px solid #e6e4dd; padding: 10px 12px; display: grid; gap: 3px;">
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: #45443f;">Sekilas Tentang Kawasan</span>
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: #a19e95;">Site scale</span>
+              </div>
+              <span data-expand="" style="position: absolute; top: 10px; right: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #f6f5f2; background: #20201e; padding: 4px 8px;">Open</span>
+            </a>
+          </div>
+          <div style="display: grid; gap: 8px;">
+            <div style="display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap;">
+              <h3 style="margin: 0; font-size: 24px; font-weight: 500; letter-spacing: -0.015em;">Studio Proses Perencanaan, Kecamatan Kroya, Kabupaten Cilacap</h3>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8a887f;">Group D3</span>
+            </div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.06em; color: #8a887f;">Map coordinator · supervisor Dr.-Ing. Prihadi Nugroho, S.T., M.T., M.P.P.</div>
+            <p style="margin: 4px 0 0; max-width: 62ch; font-size: 16.5px; line-height: 1.6; color: #55534d; text-wrap: pretty;">A planning study read at three nested scales: the whole sub-district, the urban area, and a 72-hectare site across Desa Kedawung and Desa Bajing. The work profiles demography, economy, physical conditions and infrastructure, then traces each scale to its own issue tree: Kroya Station underused as a strategic transport node, fragmented trade and mobility in the urban core, and a site whose circulation and visual identity remain unresolved. All maps in the folders above were produced for this studio.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: #dcdad3; border: 1px solid #dcdad3; margin-top: 10px;">
+              <div data-plate="" style="background: #f6f5f2; padding: 16px 18px;">
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a887f;">Sub-district</div>
+                <div style="font-size: 15px; margin-top: 6px;">6,168 ha · 17 villages</div>
+              </div>
+              <div data-plate="" style="background: #f6f5f2; padding: 16px 18px;">
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a887f;">Population</div>
+                <div style="font-size: 15px; margin-top: 6px;">121,317 · 1,967 / km²</div>
+              </div>
+              <div data-plate="" style="background: #f6f5f2; padding: 16px 18px;">
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a887f;">Urban area / site</div>
+                <div style="font-size: 15px; margin-top: 6px;">3,173 ha / 72.73 ha</div>
+              </div>
+            </div>
+            <a href="assets/studio/Laporan Akhir Kelompok D3 - Studio Proses Perencanaan Kroya.pdf" target="_blank" rel="noopener" data-float="" style="border-bottom: none; display: flex; gap: 20px; align-items: center; justify-content: space-between; flex-wrap: wrap; border: 1px solid #cbc9c2; background: #efeee9; padding: 20px 22px; margin-top: 18px;" style-hover="border-color: #20201e;">
+              <div style="display: grid; gap: 5px;">
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #8a887f;">Final report · PDF · 64 pages</div>
+                <div style="font-size: 18px; letter-spacing: -0.01em; color: #20201e;">Laporan Akhir, Kelompok D3, Kecamatan Kroya</div>
+              </div>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #f6f5f2; background: #20201e; padding: 11px 18px; white-space: nowrap;">Read the report</span>
+            </a>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; align-items: center;">
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #55534d; border: 1px solid #dcdad3; padding: 4px 9px;" data-tag="">QGIS</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #55534d; border: 1px solid #dcdad3; padding: 4px 9px;" data-tag="">ArcGIS Pro</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #55534d; border: 1px solid #dcdad3; padding: 4px 9px;" data-tag="">Infographic layout</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #55534d; border: 1px solid #dcdad3; padding: 4px 9px;" data-tag="">Issue tree</span>
+            </div>
+          </div>
+        </article>
+
+        <article data-reveal="" data-stagger="" style="display: grid; gap: 18px;">
+          <a href="https://www.youtube.com/watch?v=1rDE_5CeaBc" target="_blank" rel="noopener" data-float="" style="border-bottom: none; position: relative; display: block; aspect-ratio: 16 / 9; border: 1px solid #dcdad3; background: #000; overflow: hidden;">
+            <img src="https://img.youtube.com/vi/1rDE_5CeaBc/maxresdefault.jpg" alt="Behind the Colorful Canvas: Gedong Songo" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+          </a>
+          <div style="display: flex; gap: 12px; align-items: baseline; justify-content: space-between; flex-wrap: wrap; margin-top: -6px;">
+            <a href="https://www.youtube.com/watch?v=1rDE_5CeaBc" target="_blank" rel="noopener" style="border-bottom: none; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #20201e; border: 1px solid #cbc9c2; padding: 9px 16px;" data-cta="" style-hover="border-color: #20201e;">Watch on YouTube</a>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: #a19e95;">14'48"</span>
+          </div>
+          <div style="display: grid; gap: 8px;">
+            <div style="display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap;">
+              <h3 style="margin: 0; font-size: 24px; font-weight: 500; letter-spacing: -0.015em;">Behind the Colorful Canvas: Gedong Songo</h3>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8a887f;">Dec 2024</span>
+            </div>
+            <p style="margin: 0; max-width: 62ch; font-size: 16.5px; line-height: 1.6; color: #55534d; text-wrap: pretty;">Documentary made for the Teknik Komunikasi course and screened at the Festival Film Mahasiswa DPWK UNDIP, Semester 1 2024/2025, the sole entry from the International Undergraduate Program among 21 films from five classes.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: #dcdad3; border: 1px solid #dcdad3; margin-top: 10px;">
+              <div data-plate="" style="background: #f6f5f2; padding: 16px 18px;">
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a887f;">Audience score</div>
+                <div style="font-size: 15px; margin-top: 6px;">8.78 / 10</div>
+              </div>
+              <div data-plate="" style="background: #f6f5f2; padding: 16px 18px;">
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a887f;">Ranking</div>
+                <div style="font-size: 15px; margin-top: 6px;">2nd of 21 films</div>
+              </div>
+              <div data-plate="" style="background: #f6f5f2; padding: 16px 18px;">
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a887f;">Reviewers</div>
+                <div style="font-size: 15px; margin-top: 6px;">185 students &amp; lecturers</div>
+              </div>
+            </div>
+            <p style="margin: 10px 0 0; max-width: 62ch; font-size: 15px; line-height: 1.6; color: #6b6963; text-wrap: pretty;">Reviewers singled out the film's drone footage, cinematography and the detail of the data behind the issue it covers. Scores exclude votes from the film's own group.</p>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px;">
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #55534d; border: 1px solid #dcdad3; padding: 4px 9px;" data-tag="">Adobe Premiere Pro</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #55534d; border: 1px solid #dcdad3; padding: 4px 9px;" data-tag="">After Effects</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #55534d; border: 1px solid #dcdad3; padding: 4px 9px;" data-tag="">Videography</span>
+            </div>
+          </div>
+        </article>
+
+        <article data-reveal="" data-stagger="" style="display: grid; gap: 18px;">
+          <div data-float="" style="position: relative; aspect-ratio: 16 / 9; border: 1px solid #dcdad3; background: #efeee9; overflow: hidden;">
+            <img src="assets/workshop/cohort-banner.jpg" alt="Summer Workshop 2026 cohort at the Sayung solar pump station" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+          </div>
+          <div style="display: grid; gap: 8px;">
+            <div style="display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap;">
+              <h3 style="margin: 0; font-size: 24px; font-weight: 500; letter-spacing: -0.015em;">Powering a Resilient Future: Sayung Village, Demak</h3>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8a887f;">13–24 July 2026</span>
+            </div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.06em; color: #8a887f;">Summer Workshop, Faculty of Engineering UNDIP × University of Hawaiʻi at Mānoa · Group 2</div>
+            <p style="margin: 4px 0 0; max-width: 62ch; font-size: 16.5px; line-height: 1.6; color: #55534d; text-wrap: pretty;">A bowl-shaped coastal basin sitting below river level, where industrial groundwater extraction drives subsidence and tidal water mixes with sewage and household waste. Group 2 mapped land change from 2017 to 2025, built a problem tree and SWOT, and set out a roadmap around solar-powered drainage pumps: raised floors and rain catchment in the short term, replacing groundwater extraction with purified surface water and community-based ecosystem restoration in the long term.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: #dcdad3; border: 1px solid #dcdad3; margin-top: 10px;">
+              <div data-plate="" style="background: #f6f5f2; padding: 16px 18px;">
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a887f;">Service area</div>
+                <div style="font-size: 15px; margin-top: 6px;">55 hectares</div>
+              </div>
+              <div data-plate="" style="background: #f6f5f2; padding: 16px 18px;">
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a887f;">Subsidence</div>
+                <div style="font-size: 15px; margin-top: 6px;">Up to 15 cm / year</div>
+              </div>
+              <div data-plate="" style="background: #f6f5f2; padding: 16px 18px;">
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a887f;">Tidal inundation</div>
+                <div style="font-size: 15px; margin-top: 6px;">1.0–1.7 m</div>
+              </div>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px;">
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #55534d; border: 1px solid #dcdad3; padding: 4px 9px;" data-tag="">Coastal resilience</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #55534d; border: 1px solid #dcdad3; padding: 4px 9px;" data-tag="">Field survey</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #55534d; border: 1px solid #dcdad3; padding: 4px 9px;" data-tag="">Land-change analysis</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #55534d; border: 1px solid #dcdad3; padding: 4px 9px;" data-tag="">Stakeholder mapping</span>
+            </div>
+            <div data-strip="" style="display: flex; gap: 14px; overflow-x: auto; padding: 18px 2px 8px; scroll-snap-type: x mandatory;">
+                <figure style="margin: 0; flex: 0 0 260px; scroll-snap-align: start; border: 1px solid #dcdad3; background: #fff;">
+                  <div style="aspect-ratio: 3 / 2; overflow: hidden;">
+                    <img src="assets/workshop/pump-station.jpg" alt="Site visit to the solar pump station, Sayung" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+                  </div>
+                  <figcaption style="border-top: 1px solid #e6e4dd; padding: 10px 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: #6b6963; line-height: 1.5;">Site visit to the solar-powered pump station, Sayung</figcaption>
+                </figure>
+                <figure style="margin: 0; flex: 0 0 260px; scroll-snap-align: start; border: 1px solid #dcdad3; background: #fff;">
+                  <div style="aspect-ratio: 3 / 2; overflow: hidden;">
+                    <img src="assets/workshop/village-briefing.jpg" alt="Field briefing during the workshop" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+                  </div>
+                  <figcaption style="border-top: 1px solid #e6e4dd; padding: 10px 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: #6b6963; line-height: 1.5;">Field briefing with local hosts</figcaption>
+                </figure>
+                <figure style="margin: 0; flex: 0 0 260px; scroll-snap-align: start; border: 1px solid #dcdad3; background: #fff;">
+                  <div style="aspect-ratio: 3 / 2; overflow: hidden;">
+                    <img src="assets/workshop/studio-session.jpg" alt="Group 2 building the problem tree" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+                  </div>
+                  <figcaption style="border-top: 1px solid #e6e4dd; padding: 10px 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: #6b6963; line-height: 1.5;">Group 2 building the problem tree</figcaption>
+                </figure>
+                <figure style="margin: 0; flex: 0 0 260px; scroll-snap-align: start; border: 1px solid #dcdad3; background: #fff;">
+                  <div style="aspect-ratio: 3 / 2; overflow: hidden;">
+                    <img src="assets/workshop/group2.jpg" alt="Group 2 at the workshop" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+                  </div>
+                  <figcaption style="border-top: 1px solid #e6e4dd; padding: 10px 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: #6b6963; line-height: 1.5;">Group 2: interview roles and question list</figcaption>
+                </figure>
+                <figure style="margin: 0; flex: 0 0 260px; scroll-snap-align: start; border: 1px solid #dcdad3; background: #fff;">
+                  <div style="aspect-ratio: 3 / 2; overflow: hidden;">
+                    <img src="assets/workshop/field-walk.jpg" alt="Walkthrough of a bamboo growing structure" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+                  </div>
+                  <figcaption style="border-top: 1px solid #e6e4dd; padding: 10px 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: #6b6963; line-height: 1.5;">Walkthrough of community growing plots</figcaption>
+                </figure>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <div style="max-width: 1080px; margin: 0 auto; padding: 0 32px;"><div data-rule="" style="height: 1px; background: #dcdad3;"></div></div>
+
+  <section id="writing" style="max-width: 1080px; margin: 0 auto; padding: 72px 32px;">
+    <div style="display: flex; flex-wrap: wrap; gap: 22px 48px; align-items: flex-start;">
+      <h2 style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #6b6963; font-weight: 500; padding-top: 8px; flex: 0 0 200px;">03 · Writing &amp; competitions</h2>
+      <div style="display: grid; gap: 0; flex: 1 1 320px; min-width: 0;">
+        <div data-reveal="" data-stagger="" style="display: grid; gap: 7px; padding: 22px 0; border-top: 1px solid #dcdad3;">
+          <div style="display: flex; flex-wrap: wrap; gap: 4px 24px; align-items: baseline; justify-content: space-between;">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #20201e;">Bronze Medal</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #a19e95; letter-spacing: 0.02em;">ISS Malaysia · Oct 2025</div>
+          </div>
+          <div style="font-size: 18px; line-height: 1.4; letter-spacing: -0.01em; max-width: 74ch; text-wrap: pretty;">AquaCycle Indonesia: Empowering Riverside Communities through Smart River Cleaning Technology and Circular Waste-to-Wealth Economy</div>
+          <div style="font-size: 15px; color: #6b6963;">International Essay Competition, team essay</div>
+        </div>
+        <div data-reveal="" data-stagger="" style="display: grid; gap: 7px; padding: 22px 0; border-top: 1px solid #dcdad3;">
+          <div style="display: flex; flex-wrap: wrap; gap: 4px 24px; align-items: baseline; justify-content: space-between;">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #20201e;">Bronze Medal · Best Video · Best Poster</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #a19e95; letter-spacing: 0.02em;">FAPERTA FAIR 7 · May 2025</div>
+          </div>
+          <div style="font-size: 18px; line-height: 1.4; letter-spacing: -0.01em; max-width: 74ch; text-wrap: pretty;">Harmony of Nature and Technology through Sponge Park as a Smart City Elevator, Realizing Golden Indonesia 2045</div>
+          <div style="font-size: 15px; color: #6b6963;">National Essay Competition, team essay</div>
+        </div>
+        <div data-reveal="" data-stagger="" style="display: grid; gap: 7px; padding: 22px 0; border-top: 1px solid #dcdad3;">
+          <div style="display: flex; flex-wrap: wrap; gap: 4px 24px; align-items: baseline; justify-content: space-between;">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #20201e;">Summer Workshop</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #a19e95; letter-spacing: 0.02em;">UNDIP × UH Mānoa · Jul 2026</div>
+          </div>
+          <div style="font-size: 18px; line-height: 1.4; letter-spacing: -0.01em; max-width: 74ch; text-wrap: pretty;">City and Energy: Towards Sustainability, Resilience, Equity</div>
+          <div style="font-size: 15px; color: #6b6963;">Land subsidence and tidal flooding in Sayung Village, Demak, group project and exhibition</div>
+        </div>
+        <div style="border-top: 1px solid #dcdad3;"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" style="max-width: 1080px; margin: 0 auto; padding: 72px 32px;">
+    <div style="display: flex; flex-wrap: wrap; gap: 22px 48px; align-items: flex-start;">
+      <h2 style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #6b6963; font-weight: 500; padding-top: 8px; flex: 0 0 200px;">04 · Skills &amp; tools</h2>
+      <div data-reveal="" data-stagger="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; flex: 1 1 320px; min-width: 0;">
+        <div style="display: grid; gap: 12px; align-content: start;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a887f; padding-bottom: 10px; border-bottom: 1px solid #dcdad3;">Desktop GIS &amp; CAD</div>
+          <div data-skill="" style="font-size: 16px;">QGIS</div>
+          <div data-skill="" style="font-size: 16px;">ArcGIS Pro</div>
+          <div data-skill="" style="font-size: 16px;">AutoCAD</div>
+          <div data-skill="" style="font-size: 16px;">SketchUp</div>
+        </div>
+        <div style="display: grid; gap: 12px; align-content: start;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a887f; padding-bottom: 10px; border-bottom: 1px solid #dcdad3;">Remote sensing &amp; analysis</div>
+          <div data-skill="" style="font-size: 16px;">Google Earth Engine</div>
+          <div data-skill="" style="font-size: 16px;">Google Earth</div>
+          <div data-skill="" style="font-size: 16px;">Microsoft Excel</div>
+          <div data-skill="" style="font-size: 16px;">Remote sensing</div>
+        </div>
+        <div style="display: grid; gap: 12px; align-content: start;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a887f; padding-bottom: 10px; border-bottom: 1px solid #dcdad3;">Methods</div>
+          <div data-skill="" style="font-size: 16px;">Thematic mapping</div>
+          <div data-skill="" style="font-size: 16px;">Demographic &amp; income projection</div>
+          <div data-skill="" style="font-size: 16px;">3D visualization</div>
+          <div data-skill="" style="font-size: 16px;">Map layout &amp; cartography</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="max-width: 1080px; margin: 0 auto; padding: 0 32px;"><div data-rule="" style="height: 1px; background: #dcdad3;"></div></div>
+
+  <section id="experience" style="max-width: 1080px; margin: 0 auto; padding: 72px 32px;">
+    <div style="display: grid; gap: 44px;">
+      <div data-reveal="" data-stagger="" style="display: grid; gap: 10px;">
+        <h2 style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #8a887f; font-weight: 400;">(05) Work history</h2>
+        <div style="font-size: clamp(38px, 5.4vw, 62px); line-height: 1.02; font-weight: 500; letter-spacing: -0.03em;">Experience.</div>
+      </div>
+
+      <div style="position: relative; display: grid; gap: 0; padding-left: 26px;"><span data-timeline="" style="position: absolute; left: 0; top: 6px; bottom: 6px; width: 1px; background: #dcdad3;"></span>
+
+        <div data-reveal="" style="position: relative; padding: 0 0 40px;">
+          <span data-dot="" style="position: absolute; left: -32px; top: 6px; width: 11px; height: 11px; border-radius: 50%; background: #20201e; border: 1px solid #20201e;"></span>
+          <div style="display: flex; flex-wrap: wrap; gap: 4px 24px; align-items: baseline; justify-content: space-between;">
+            <div style="font-size: 19px; font-weight: 600; letter-spacing: -0.01em;">Urban Planning Intern</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #a19e95; letter-spacing: 0.02em;">2022–2024</div>
+          </div>
+          <div style="font-size: 15px; color: #6b6963; margin-top: 4px;">PT. Dananjaya Design Indonesia · Internship</div>
+          <div style="display: grid; gap: 11px; margin-top: 16px;">
+            <div style="display: flex; gap: 12px; align-items: baseline;">
+              <span style="flex: 0 0 5px; width: 5px; height: 5px; border-radius: 50%; background: #c2bfb7; transform: translateY(-3px);"></span>
+              <span style="font-size: 15.5px; line-height: 1.55; color: #55534d; max-width: 76ch;">Produced GIS-based thematic maps for 16 sub-districts in West Bandung Regency using QGIS and ArcGIS Pro.</span>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: baseline;">
+              <span style="flex: 0 0 5px; width: 5px; height: 5px; border-radius: 50%; background: #c2bfb7; transform: translateY(-3px);"></span>
+              <span style="font-size: 15.5px; line-height: 1.55; color: #55534d; max-width: 76ch;">Developed income and population projections from BPS data using linear and geometric methods.</span>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: baseline;">
+              <span style="flex: 0 0 5px; width: 5px; height: 5px; border-radius: 50%; background: #c2bfb7; transform: translateY(-3px);"></span>
+              <span style="font-size: 15.5px; line-height: 1.55; color: #55534d; max-width: 76ch;">Work supported a government-commissioned programme to develop tourism villages (desa wisata).</span>
+            </div>
+          </div>
+        </div>
+
+        <div data-reveal="" style="position: relative; padding: 0 0 40px;">
+          <span data-dot="" style="position: absolute; left: -32px; top: 6px; width: 11px; height: 11px; border-radius: 50%; background: #f6f5f2; border: 1px solid #b8b5ad;"></span>
+          <div style="display: flex; flex-wrap: wrap; gap: 4px 24px; align-items: baseline; justify-content: space-between;">
+            <div style="font-size: 19px; font-weight: 600; letter-spacing: -0.01em;">Junior Staff, Training &amp; Development</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #a19e95; letter-spacing: 0.02em;">2022–2024</div>
+          </div>
+          <div style="font-size: 15px; color: #6b6963; margin-top: 4px;">Association of Planning Engineering Students (HMTP), Diponegoro University</div>
+          <div style="display: grid; gap: 11px; margin-top: 16px;">
+            <div style="display: flex; gap: 12px; align-items: baseline;">
+              <span style="flex: 0 0 5px; width: 5px; height: 5px; border-radius: 50%; background: #c2bfb7; transform: translateY(-3px);"></span>
+              <span style="font-size: 15.5px; line-height: 1.55; color: #55534d; max-width: 76ch;">Person in charge of Plano Pustaka, sharing lecture materials and elective-course information with department students.</span>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: baseline;">
+              <span style="flex: 0 0 5px; width: 5px; height: 5px; border-radius: 50%; background: #c2bfb7; transform: translateY(-3px);"></span>
+              <span style="font-size: 15.5px; line-height: 1.55; color: #55534d; max-width: 76ch;">Reached 90% availability of materials shared by lecturers.</span>
+            </div>
+          </div>
+        </div>
+
+        <div data-reveal="" style="position: relative; padding: 0;">
+          <span data-dot="" style="position: absolute; left: -32px; top: 6px; width: 11px; height: 11px; border-radius: 50%; background: #f6f5f2; border: 1px solid #b8b5ad;"></span>
+          <div style="display: flex; flex-wrap: wrap; gap: 4px 24px; align-items: baseline; justify-content: space-between;">
+            <div style="font-size: 19px; font-weight: 600; letter-spacing: -0.01em;">Diponegoro University</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #a19e95; letter-spacing: 0.02em;">2024–2027</div>
+          </div>
+          <div style="font-size: 15px; color: #6b6963; margin-top: 4px;">Urban and Regional Planning, International Undergraduate Program · Semarang</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="background: #20201e; color: #f2f1ed; margin-top: 24px;">
+    <div style="max-width: 1080px; margin: 0 auto; padding: 88px 32px;">
+      <div style="display: flex; flex-wrap: wrap; gap: 22px 48px; align-items: flex-start;">
+        <h2 style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #9a978e; font-weight: 500; padding-top: 8px; flex: 0 0 200px;">06 · Contact</h2>
+        <div data-reveal="" data-stagger="" style="display: grid; gap: 34px; flex: 1 1 320px; min-width: 0;">
+          <p style="margin: 0; font-size: clamp(24px, 3vw, 34px); line-height: 1.3; font-weight: 500; letter-spacing: -0.02em; max-width: 30ch; text-wrap: balance;">Open to work, collaboration, and good conversations about cities.</p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 28px;">
+            <div>
+              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #86837b;">Email</div>
+              <div style="margin-top: 7px; font-size: 16px; display: flex; gap: 10px; align-items: center;"><span style="flex: 0 0 18px; display: inline-flex; align-items: center; justify-content: center; color: #86837b;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" /><path d="M2.5 6l9.5 7 9.5-7" /></svg></span><a href="mailto:zhillanqisa.zhln@gmail.com" style="color: #f2f1ed; border-bottom-color: #4a4944;">zhillanqisa.zhln@gmail.com</a></div>
+            </div>
+            <div>
+              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #86837b;">LinkedIn</div>
+              <div style="margin-top: 7px; font-size: 16px; display: flex; gap: 10px; align-items: center;"><span style="flex: 0 0 18px; display: inline-flex; align-items: center; justify-content: center; color: #86837b;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg></span><a href="https://linkedin.com/in/zhillanqisa" style="color: #f2f1ed; border-bottom-color: #4a4944;">/in/zhillanqisa</a></div>
+            </div>
+            <div>
+              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #86837b;">GitHub</div>
+              <div style="margin-top: 7px; font-size: 16px; display: flex; gap: 10px; align-items: center;"><span style="flex: 0 0 18px; display: inline-flex; align-items: center; justify-content: center; color: #86837b;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></span><a href="https://github.com/zhillanqisa" style="color: #f2f1ed; border-bottom-color: #4a4944;">/zhillanqisa</a></div>
+            </div>
+            <div>
+              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #86837b;">Location</div>
+              <div style="margin-top: 7px; font-size: 16px; display: flex; gap: 10px; align-items: center;"><span style="flex: 0 0 18px; display: inline-flex; align-items: center; justify-content: center; color: #86837b;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 22s7-6.2 7-12A7 7 0 0 0 5 10c0 5.8 7 12 7 12z" /><circle cx="12" cy="10" r="2.6" /></svg></span><span style="color: #f2f1ed;">Bandung, Indonesia</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="border-top: 1px solid #35342f;">
+      <div style="max-width: 1080px; margin: 0 auto; padding: 20px 32px; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #86837b;">
+        <span>Zhillan Qisa Zhahiran</span>
+        <span>Urban Planning &amp; GIS</span>
+      </div>
+    </div>
+  </section>
+
+  <sc-if value="{{ isOpen }}" hint-placeholder-val="{{ false }}">
+    <div data-lightbox="" onClick="{{ closeBox }}" style="position: fixed; inset: 0; z-index: 100; background: rgba(24,24,22,0.86); backdrop-filter: blur(3px); display: flex; align-items: center; justify-content: center; padding: 32px; cursor: zoom-out;">
+      <div data-lightbox-panel="" onClick="{{ stop }}" style="max-width: 1100px; width: 100%; cursor: default;">
+        <div style="display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: baseline; justify-content: space-between; margin-bottom: 14px;">
+          <div style="display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #f2f1ed;">{{ activeLabel }}</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: #a19e95;">{{ activeSub }}</span>
+          </div>
+          <div onClick="{{ closeBox }}" role="button" tabindex="0" style="cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #a19e95; border: 1px solid #4a4944; padding: 6px 12px;" style-hover="color: #f2f1ed; border-color: #a19e95;">Close · Esc</div>
+        </div>
+        <div style="width: 100%; border: 1px solid #4a4944; background: #fff; display: flex; align-items: center; justify-content: center; min-height: 200px;">
+          {{ activeImage }}
+        </div>
+        <div style="display: flex; gap: 14px; margin-top: 14px; justify-content: space-between;">
+          <div onClick="{{ prev }}" role="button" tabindex="0" style="cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #a19e95;" style-hover="color: #f2f1ed;">← Previous</div>
+          <div onClick="{{ next }}" role="button" tabindex="0" style="cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #a19e95;" style-hover="color: #f2f1ed;">Next →</div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const sel = '[data-reveal], [data-rule], [data-timeline], [data-dot]';
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('zq-in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    const scan = () => document.querySelectorAll(sel).forEach((el) => {
+      if (!el.classList.contains('zq-in')) io.observe(el);
+    });
+    scan();
+    this._t = setTimeout(scan, 600);
+    this._key = (e) => {
+      if (this.state.active === null) return;
+      if (e.key === 'Escape') this.closeBox();
+      if (e.key === 'ArrowLeft') this.step(-1);
+      if (e.key === 'ArrowRight') this.step(1);
+    };
+    document.addEventListener('keydown', this._key);
+  }
+  componentWillUnmount() { clearTimeout(this._t); document.removeEventListener('keydown', this._key); }
+
+  state = { active: null, filter: 'wb' };
+
+  get groups() {
+    return [
+      {
+        key: 'wb', label: 'West Bandung',
+        title: 'Tourism-village thematic maps, West Bandung Regency',
+        meta: 'PT. Dananjaya Design Indonesia · 2022–2024',
+        note: 'GIS-based thematic maps for 16 sub-districts, produced for a government-commissioned programme to develop tourism villages. Three sub-districts shown here per theme.',
+        tags: ['QGIS', 'ArcGIS Pro', 'Thematic mapping']
+      },
+      {
+        key: 'skl', label: 'Land capability',
+        title: 'Land capability analysis (SKL), Kroya, Cilacap',
+        meta: 'Studio Proses Perencanaan · map coordinator',
+        note: 'Eight derived surfaces (morphology, workability, foundation stability, water availability, drainage, waste disposal, erosion and hazard exposure) combined into a single land-capability map.',
+        tags: ['ArcGIS Pro', 'Overlay analysis', 'Land suitability']
+      },
+      {
+        key: 'infra', label: 'Facility coverage',
+        title: 'Facility service coverage, Kroya, Cilacap',
+        meta: 'Studio Proses Perencanaan · map coordinator',
+        note: 'Catchment analysis for education, worship, market and retail facilities, plus the distribution of government service points.',
+        tags: ['QGIS', 'Buffer & catchment', 'Service coverage']
+      },
+      {
+        key: 'ts', label: 'Time series',
+        title: 'Population density and land cover over time, Kroya, Cilacap',
+        meta: 'Studio Proses Perencanaan · map coordinator',
+        note: 'Observed years mapped alongside projections to 2045, using linear and geometric projection methods on BPS data.',
+        tags: ['ArcGIS Pro', 'Population projection', 'Land-cover change']
+      },
+      {
+        key: 'base', label: 'Base maps',
+        title: 'Base and physical maps, Kroya, Cilacap',
+        meta: 'Studio Proses Perencanaan · map coordinator',
+        note: 'The underlying data layers for the studio analysis: geology, morphology, land cover, spatial pattern, power network and population density.',
+        tags: ['QGIS', 'Cartography', 'Base data']
+      }
+    ];
+  }
+
+  get allMaps() {
+    const wb = [
+      ['Accommodation & lodging', 'akomodasi'],
+      ['Public facilities & services', 'fasum'],
+      ['Food & local produce', 'kuliner'],
+      ['Local business distribution', 'usaha'],
+      ['Transport nodes', 'transportasi']
+    ];
+    const kec = [['Lembang', 'lembang'], ['Padalarang', 'padalarang'], ['Cisarua', 'cisarua']];
+    const out = [];
+    wb.forEach(([theme, slug]) => kec.forEach(([name, file]) => {
+      out.push({ group: 'wb', label: theme, sub: 'Kec. ' + name, src: 'assets/maps/wb/' + slug + '-' + file + '.jpg' });
+    }));
+    const push = (group, dir, items) => items.forEach(([label, sub, file]) =>
+      out.push({ group, label, sub, src: 'assets/maps/' + dir + '/' + file }));
+    push('skl', 'skl', [
+      ['Land capability', 'Composite result', 'kemampuan-lahan.jpg'],
+      ['Morphology', 'SKL', 'morfologi.jpg'],
+      ['Workability', 'SKL', 'kemudahan-dikerjakan.jpg'],
+      ['Foundation stability', 'SKL', 'kestabilan-pondasi.jpg'],
+      ['Water availability', 'SKL', 'ketersediaan-air.jpg'],
+      ['Drainage', 'SKL', 'drainase.jpg'],
+      ['Waste disposal', 'SKL', 'pembuangan-limbah.jpg'],
+      ['Erosion susceptibility', 'SKL', 'erosi.jpg'],
+      ['Natural hazard exposure', 'SKL', 'bencana-alam.jpg']
+    ]);
+    push('infra', 'infra', [
+      ['Primary school catchment', 'SD', 'pendidikan-sd.png'],
+      ['Junior high catchment', 'SMP', 'pendidikan-smp.png'],
+      ['Senior high catchment', 'SMA', 'pendidikan-sma.png'],
+      ['Places of worship', 'Catchment', 'peribadatan.jpg'],
+      ['Market catchment', 'Catchment', 'pasar.png'],
+      ['Retail catchment', 'Catchment', 'pertokoan.png'],
+      ['Government facilities', 'Point distribution', 'pemerintahan.png']
+    ]);
+    push('ts', 'ts', [
+      ['Population density', '2014', 'kepadatan-2014.jpg'],
+      ['Population density', '2019', 'kepadatan-2019.jpg'],
+      ['Population density', '2024', 'kepadatan-2024.jpg'],
+      ['Population density', '2035 · projected', 'kepadatan-2035.jpg'],
+      ['Population density', '2045 · projected', 'kepadatan-2045.jpg'],
+      ['Land cover', '2017', 'tutupan-2017.jpg'],
+      ['Land cover', '2025', 'tutupan-2025.jpg'],
+      ['Land cover', '2045 · projected', 'tutupan-2045.jpg']
+    ]);
+    push('base', 'base', [
+      ['Land capability analysis', 'AKL', 'akl.jpg'],
+      ['Geology', 'Base map', 'geologi.jpg'],
+      ['Morphology', 'Base map', 'morfologi.jpg'],
+      ['Land cover', '2024', 'tutupan-lahan.jpg'],
+      ['Spatial pattern', 'Pola ruang', 'pola-ruang.jpg'],
+      ['Power network', 'Base map', 'jaringan-listrik.jpg'],
+      ['Population density', 'Base map', 'kepadatan.jpg']
+    ]);
+    return out;
+  }
+
+  get visible() {
+    return this.allMaps.filter((m) => m.group === this.state.filter);
+  }
+
+  open = (i) => this.setState({ active: i });
+  closeBox = () => this.setState({ active: null });
+  step = (d) => this.setState((s) => {
+    if (s.active === null) return null;
+    const n = this.allMaps.filter((m) => m.group === s.filter).length;
+    return { active: (s.active + d + n) % n };
+  });
+
+  renderVals() {
+    const active = this.state.active;
+    const list = this.visible;
+    const current = active !== null ? list[active] : null;
+    const g = this.groups.find((x) => x.key === this.state.filter) || this.groups[0];
+    const tabs = this.groups.map((x) => ({
+      key: x.key,
+      label: x.label,
+      style: 'cursor: pointer; font-family: \'IBM Plex Mono\', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 9px 14px; border: 1px solid ' +
+        (x.key === this.state.filter ? '#20201e' : '#dcdad3') + '; background: ' +
+        (x.key === this.state.filter ? '#20201e' : 'transparent') + '; color: ' +
+        (x.key === this.state.filter ? '#f6f5f2' : '#6b6963') + '; transition: all 0.3s ease;'
+    }));
+    const cardOpen = (e) => this.open(Number(e.currentTarget.dataset.index));
+    const cardKey = (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.open(Number(e.currentTarget.dataset.index)); }
+    };
+    return {
+      visible: this.visible,
+      tabs,
+      groupTitle: g.title,
+      groupMeta: g.meta,
+      groupNote: g.note,
+      groupTags: g.tags,
+      mapCount: String(this.visible.length),
+      setFilter: (e) => this.setState({ filter: e.currentTarget.dataset.key, active: null }),
+      isOpen: active !== null,
+      activeLabel: current ? current.label : '',
+      activeSub: current ? current.sub : '',
+      activeImage: current ? React.createElement('img', { src: current.src, alt: current.label, style: { maxWidth: '100%', maxHeight: '74vh', width: 'auto', height: 'auto', objectFit: 'contain', display: 'block' } }) : null,
+      onCardClick: cardOpen,
+      onCardKey: cardKey,
+      closeBox: this.closeBox,
+      stop: (e) => e.stopPropagation(),
+      prev: (e) => { e.stopPropagation(); this.step(-1); },
+      next: (e) => { e.stopPropagation(); this.step(1); }
+    };
+  }
+}
+</script>
+</body>
+</html>
