@@ -62,9 +62,19 @@
     if (!inner || !stage) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+    // Below this width the hero is a normal section (see the mobile block in
+    // styles.css), so fading it out would blank real content mid-scroll.
+    var sticky = window.matchMedia('(min-width: 861px)');
+
     var raf = 0;
     function apply() {
       raf = 0;
+      if (!sticky.matches) {
+        inner.style.transform = '';
+        inner.style.opacity = '';
+        inner.style.filter = '';
+        return;
+      }
       var h = stage.offsetHeight || 1;
       var t = Math.min(1, Math.max(0, window.scrollY / (h * 0.85)));
       var e = t * t;
@@ -75,6 +85,7 @@
     var onScroll = function () { if (!raf) raf = requestAnimationFrame(apply); };
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
+    if (sticky.addEventListener) sticky.addEventListener('change', apply);
     apply();
   })();
 

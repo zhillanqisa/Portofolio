@@ -757,3 +757,40 @@ html.zq-dark [data-theme-scope] img { filter: invert(1) hue-rotate(180deg); }
   transform: translateY(-3px);
 }
 .bullets span { font-size: 15.5px; line-height: 1.6; color: var(--body); max-width: 78ch; text-wrap: pretty; }
+
+/* --------------------------------- mobile ----------------------------------
+   The sticky hero only works while it is shorter than the viewport. On a phone
+   it stacks and runs about twice the screen height, so sticky degrades into a
+   normal scroll and the page never slides over it. Below this width the hero
+   becomes a plain section and app.js turns the parallax off to match. */
+
+@media (max-width: 860px) {
+  .hero-stage { position: static; }
+  .scroll-over { min-height: 0; box-shadow: none; }
+  .hero { padding: 64px 20px 56px; }
+  .hero__inner { gap: 32px; }
+  .portrait { flex: 0 0 auto; width: 100%; max-width: 300px; }
+  .hero__text { gap: 28px; }
+  .hero h1 { max-width: none; }
+  .lead { font-size: 17.5px; }
+}
+
+@media (max-width: 640px) {
+  .wrap { padding: 0 20px; }
+  .site-header .wrap { padding: 12px 20px 20px; gap: 12px; }
+  .nav { gap: 6px 14px; font-size: 13.5px; }
+  .nav__sep { display: none; }
+
+  .section { padding: 56px 20px; }
+  .skills-section { padding: 56px 0; }
+  .skill-grid { padding: 0 20px; }
+  .contact .wrap { padding: 64px 20px; }
+  .detail { padding: 32px 20px 72px; }
+
+  .life { gap: 32px; }
+  .lifestack { min-width: 0; margin: 0 auto; }
+  .card { flex: 0 0 82vw; }
+  .shot { flex: 0 0 78vw; }
+  .report { gap: 14px; }
+  .report__cta { width: 100%; text-align: center; }
+}
