@@ -324,8 +324,15 @@ html.zq-dark [data-theme-scope] img { filter: invert(1) hue-rotate(180deg); }
 /* -------------------------------- education -------------------------------- */
 
 .edu { display: grid; grid-template-columns: 168px 1fr; gap: 8px 32px; align-items: start; }
+.edu__row { display: flex; gap: 18px; align-items: flex-start; min-width: 0; }
+.edu__logo { flex: 0 0 56px; width: 56px; height: 56px; object-fit: contain; border-radius: 10px; }
 .edu__body { display: grid; gap: 4px; min-width: 0; }
 @media (max-width: 640px) { .edu { grid-template-columns: 1fr; gap: 6px; } }
+
+/* institution marks beside the workshop credit */
+.ws-logos { display: flex; gap: 10px; align-items: center; }
+.ws-logos img { width: 40px; height: 40px; object-fit: contain; border-radius: 8px; }
+.work__meta:has(.ws-logos) { display: grid; gap: 10px; }
 
 /* --------------------------------- skills ---------------------------------- */
 

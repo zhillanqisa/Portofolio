@@ -130,10 +130,14 @@
         <div data-reveal><h2 class="h2">Education</h2></div>
         <div class="edu" data-reveal>
           <div class="role__when">2024 – 2027</div>
-          <div class="edu__body">
-            <div class="role__title">Bachelor of Urban and Regional Planning</div>
-            <div class="role__org" style="font-weight:400;color:var(--muted);">Diponegoro University, International Undergraduate Program</div>
-            <div class="role__place">Semarang, Indonesia</div>
+          <div class="edu__row">
+            <!-- drop assets/logos/undip.png in and it appears; absent, it removes itself -->
+            <img class="edu__logo" src="assets/logos/undip.png" alt="Universitas Diponegoro" loading="lazy" onerror="this.remove()">
+            <div class="edu__body">
+              <div class="role__title">Bachelor of Urban and Regional Planning</div>
+              <div class="role__org" style="font-weight:400;color:var(--muted);">Diponegoro University, International Undergraduate Program</div>
+              <div class="role__place">Semarang, Indonesia</div>
+            </div>
           </div>
         </div>
       </div>
@@ -263,7 +267,13 @@
                 <h3>Powering a Resilient Future: Sayung Village, Demak</h3>
                 <span class="work__badge">13–24 July 2026</span>
               </div>
-              <div class="work__meta">Summer Workshop, Faculty of Engineering UNDIP × University of Hawaiʻi at Mānoa · Group 2</div>
+              <div class="work__meta">
+                <span class="ws-logos">
+                  <img src="assets/logos/undip.png" alt="Universitas Diponegoro" loading="lazy" onerror="this.remove()">
+                  <img src="assets/logos/uh-manoa.png" alt="University of Hawaiʻi at Mānoa" loading="lazy" onerror="this.remove()">
+                </span>
+                <span>Summer Workshop, Faculty of Engineering UNDIP × University of Hawaiʻi at Mānoa · Group 2</span>
+              </div>
               <p class="work__desc">A bowl-shaped coastal basin sitting below river level, where industrial groundwater extraction drives subsidence and tidal water mixes with sewage and household waste. Group 2 mapped land change from 2017 to 2025, built a problem tree and SWOT, and set out a roadmap around solar-powered drainage pumps: raised floors and rain catchment in the short term, replacing groundwater extraction with purified surface water and community-based ecosystem restoration in the long term.</p>
               <div class="plates">
                 <div class="plate" data-plate><div class="plate__k">Service area</div><div class="plate__v">55 hectares</div></div>
